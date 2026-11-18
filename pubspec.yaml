@@ -1,0 +1,25 @@
+name: mindlink
+description: "MINDLINK - a simple, private well-being app for university students (ALU Group 24)."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  shared_preferences: ^2.3.3
+  url_launcher: ^6.3.1
+  cupertino_icons: ^1.0.8
+  # Kenny adds the Firebase packages here (firebase_core, firebase_auth,
+  # cloud_firestore, google_sign_in).
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
