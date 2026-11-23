@@ -65,7 +65,7 @@ void main() {
       await tapVisible(tester, find.widgetWithText(FilledButton, 'Create account'));
 
       expect(find.textContaining('Aline'), findsWidgets);
-      expect(find.text('Quick support'), findsOneWidget);
+      expect(find.text('Support that fits your day'), findsOneWidget);
       // New accounts are not verified yet, so the reminder is shown.
       expect(find.textContaining('Please verify your email'), findsOneWidget);
     });

@@ -37,6 +37,8 @@ class TodayMoodCard extends ConsumerWidget {
     return Card(
       key: const Key('today-mood-card'),
       margin: EdgeInsets.zero,
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceContainer, // soft green card, as in Figma
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: AnimatedSwitcher(
@@ -59,16 +61,16 @@ class _NoCheckInYet extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Today's check-in", style: textTheme.labelLarge),
-        const SizedBox(height: AppSpacing.xs),
         Text('How are you feeling today?', style: textTheme.titleLarge),
         const SizedBox(height: AppSpacing.xs),
-        Text('It only takes a minute.', style: textTheme.bodyMedium),
+        Text(
+          'A quick check-in can help you pause and notice what you need.',
+          style: textTheme.bodyMedium,
+        ),
         const SizedBox(height: AppSpacing.md),
-        FilledButton.icon(
+        FilledButton(
           onPressed: onStart,
-          icon: const Icon(Icons.edit_note_rounded),
-          label: const Text('Start check-in'),
+          child: const Text('Start check-in'),
         ),
       ],
     );

@@ -52,7 +52,7 @@ class HomeScreen extends ConsumerWidget {
             const TodayMoodCard(),
             const SizedBox(height: AppSpacing.md),
             const StatsRow(),
-            const SectionTitle('Quick support'),
+            const SectionTitle('Support that fits your day'),
             const QuickActions(),
             const SectionTitle('Tip of the day'),
             DailyTipCard(tip: tipFor(now)),

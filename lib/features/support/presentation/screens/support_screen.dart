@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindlink/core/constants/app_spacing.dart';
+import 'package:mindlink/core/theme/app_colors.dart';
 import 'package:mindlink/core/utils/error_messages.dart';
 import 'package:mindlink/core/widgets/empty_state.dart';
 import 'package:mindlink/core/widgets/feedback.dart';
@@ -34,8 +35,13 @@ class SupportScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "You don't have to handle everything alone. Choose what feels right for you.",
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
+                'You do not have to handle everything alone.',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                'Choose the kind of support that feels right for you.',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
               ),
               for (final category in SupportCategory.values) ...[
                 SectionTitle(category.title),
@@ -47,6 +53,12 @@ class SupportScreen extends ConsumerWidget {
                     child: _SupportCard(contact: contact),
                   ),
               ],
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'MINDLINK provides information and navigation; it does not replace professional care.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -143,8 +155,10 @@ class _SupportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final background = _isUrgent ? scheme.errorContainer : null;
-    final foreground = _isUrgent ? scheme.onErrorContainer : null;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    // Figma shows urgent help on a soft cream card.
+    final background = _isUrgent ? (isDark ? scheme.errorContainer : AppColors.urgentTint) : null;
+    final foreground = _isUrgent ? (isDark ? scheme.onErrorContainer : AppColors.textPrimary) : null;
 
     return Card(
       margin: EdgeInsets.zero,
