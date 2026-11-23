@@ -20,10 +20,27 @@ class VerifyEmailBanner extends ConsumerWidget {
     );
   }
 
+  /// Asks Firebase again. If verified, this banner disappears by itself.
+  Future<void> _checkAgain(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final success = await ref.read(authControllerProvider.notifier).refreshUser();
+    if (!success) return;
+    final verified = ref.read(authRepositoryProvider).currentUser?.emailVerified ?? false;
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(
+          verified
+              ? 'Email verified. Thank you!'
+              : 'Not verified yet. Open the link in your email, then try again.',
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scheme = Theme.of(context).colorScheme;
-    final isSending = ref.watch(authControllerProvider).isLoading;
+    final isBusy = ref.watch(authControllerProvider).isLoading;
     return Card(
       margin: EdgeInsets.zero,
       color: scheme.tertiaryContainer,
@@ -47,9 +64,18 @@ class VerifyEmailBanner extends ConsumerWidget {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: isSending ? null : () => _resend(context, ref),
-                child: const Text('Resend email'),
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: isBusy ? null : () => _resend(context, ref),
+                    child: const Text('Resend email'),
+                  ),
+                  TextButton(
+                    onPressed: isBusy ? null : () => _checkAgain(context, ref),
+                    child: const Text("I've verified"),
+                  ),
+                ],
               ),
             ),
           ],
