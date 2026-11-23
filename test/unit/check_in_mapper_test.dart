@@ -38,4 +38,16 @@ void main() {
     expect(back.source, FeelingSource.other);
     expect(back.note, '');
   });
+    test('loneliness is saved and read back', () {
+    final lonely = CheckIn(
+      id: 'x',
+      userId: 'u1',
+      mood: Mood.low,
+      source: FeelingSource.loneliness,
+      helpType: HelpType.talk,
+      createdAt: DateTime(2026, 11, 23),
+    );
+    final back = CheckInMapper.fromMap('x', CheckInMapper.toMap(lonely));
+    expect(back.source, FeelingSource.loneliness);
+  });
 }
