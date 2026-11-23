@@ -14,18 +14,28 @@ void main() {
       preferences: {SettingsRepository.breathingMinutesKey: 5},
     );
 
-    expect(find.text('Ready when you are'), findsOneWidget);
-    expect(find.text('5:00 left'), findsOneWidget);
+    // The three Figma steps are always shown.
+    expect(find.text('Reset in 5 minutes'), findsOneWidget);
+    expect(find.text('Inhale slowly for 4 seconds.'), findsOneWidget);
+    expect(find.text('Pause gently for 2 seconds.'), findsOneWidget);
+    expect(find.text('Exhale slowly for 6 seconds.'), findsOneWidget);
 
+    // Tap without pumpAndSettle: once the timer runs, settling would skip time.
+    await tester.ensureVisible(find.text('Start'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Start'));
     await tester.pump();
-    expect(find.text('Breathe in'), findsWidgets);
+    expect(find.text('Breathe in'), findsOneWidget);
 
     await tester.pump(const Duration(seconds: 4));
-    expect(find.text('Hold'), findsOneWidget);
+    expect(find.text('Pause'), findsOneWidget);
     expect(find.text('4:56 left'), findsOneWidget);
 
-    await tester.tap(find.text('Pause'));
+    await tester.pump(const Duration(seconds: 2));
+    expect(find.text('Breathe out'), findsOneWidget);
+
+    await tester.ensureVisible(find.text('Pause timer'));
+    await tester.tap(find.text('Pause timer'));
     await tester.pump();
     expect(find.text('Paused'), findsOneWidget);
 

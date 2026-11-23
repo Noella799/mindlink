@@ -6,13 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('BreathPhase.at', () {
-    test('follows in 4s, hold 4s, out 6s, then repeats', () {
+    test('follows in 4s, pause 2s, out 6s, then repeats', () {
       expect(BreathPhase.at(0), BreathPhase.inhale);
       expect(BreathPhase.at(3), BreathPhase.inhale);
       expect(BreathPhase.at(4), BreathPhase.hold);
-      expect(BreathPhase.at(8), BreathPhase.exhale);
-      expect(BreathPhase.at(13), BreathPhase.exhale);
-      expect(BreathPhase.at(14), BreathPhase.inhale);
+      expect(BreathPhase.at(5), BreathPhase.hold);
+      expect(BreathPhase.at(6), BreathPhase.exhale);
+      expect(BreathPhase.at(11), BreathPhase.exhale);
+      expect(BreathPhase.at(12), BreathPhase.inhale);
     });
   });
 

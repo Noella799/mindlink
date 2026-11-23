@@ -1,14 +1,15 @@
-/// One breathing cycle: breathe in 4s, hold 4s, breathe out 6s.
-/// A longer out-breath than in-breath is a common relaxation pattern.
+/// One breathing cycle from the Figma prototype: inhale 4s, pause 2s,
+/// exhale 6s. A longer out-breath than in-breath is a common relaxation pattern.
 enum BreathPhase {
-  inhale('Breathe in', 4),
-  hold('Hold', 4),
-  exhale('Breathe out', 6);
+  inhale('Breathe in', 4, 'Inhale slowly for 4 seconds.'),
+  hold('Pause', 2, 'Pause gently for 2 seconds.'),
+  exhale('Breathe out', 6, 'Exhale slowly for 6 seconds.');
 
-  const BreathPhase(this.label, this.seconds);
+  const BreathPhase(this.label, this.seconds, this.instruction);
 
   final String label;
   final int seconds;
+  final String instruction;
 
   static int get cycleSeconds => values.fold(0, (sum, phase) => sum + phase.seconds);
 
