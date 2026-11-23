@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mindlink/core/errors/app_exception.dart';
 import 'package:mindlink/features/check_in/data/check_in_mapper.dart';
