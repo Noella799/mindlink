@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
-import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mindlink/features/auth/data/auth_error_messages.dart';
 import 'package:mindlink/features/auth/domain/app_user.dart';
