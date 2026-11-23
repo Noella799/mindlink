@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mindlink/core/theme/app_colors.dart';
 
-/// Light and dark Material 3 themes. Buttons are at least 52dp tall,
-/// above the 48dp minimum tap target recommended by Material.
+/// Light and dark Material 3 themes matching the Figma prototype:
+/// lavender buttons with dark text, deep green accents, soft green cards.
+/// Buttons are at least 52dp tall, above the 48dp minimum tap target.
 class AppTheme {
   AppTheme._();
 
@@ -12,7 +13,7 @@ class AppTheme {
   static ThemeData _build(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
 
-    final scheme = ColorScheme.fromSeed(
+    var scheme = ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       brightness: brightness,
     ).copyWith(
@@ -24,10 +25,23 @@ class AppTheme {
       error: isDark ? AppColors.errorDark : AppColors.error,
       onError: isDark ? AppColors.onErrorDark : Colors.white,
     );
+    if (!isDark) {
+      scheme = scheme.copyWith(
+        primaryContainer: AppColors.lavender,
+        onPrimaryContainer: AppColors.textPrimary,
+        secondaryContainer: AppColors.greenTint, // bottom bar's selected pill
+        onSecondaryContainer: AppColors.primary,
+        surfaceContainerLow: Colors.white, // ordinary cards are white
+        surfaceContainer: AppColors.cardTint, // highlighted cards are soft green
+        surfaceContainerLowest: Colors.white,
+      );
+    }
 
+    final buttonFill = isDark ? AppColors.lavenderDark : AppColors.lavender;
+    final buttonText = isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
     const radius = BorderRadius.all(Radius.circular(14));
     const buttonSize = Size(64, 52);
-    const buttonText = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+    const buttonTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 
     return ThemeData(
       useMaterial3: true,
@@ -35,17 +49,20 @@ class AppTheme {
       materialTapTargetSize: MaterialTapTargetSize.padded,
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
+          backgroundColor: buttonFill,
+          foregroundColor: buttonText,
           minimumSize: buttonSize,
           shape: const RoundedRectangleBorder(borderRadius: radius),
-          textStyle: buttonText,
+          textStyle: buttonTextStyle,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
+          foregroundColor: buttonText,
           minimumSize: buttonSize,
           shape: const RoundedRectangleBorder(borderRadius: radius),
-          side: BorderSide(color: scheme.primary),
-          textStyle: buttonText,
+          side: BorderSide(color: scheme.outlineVariant),
+          textStyle: buttonTextStyle,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
