@@ -33,7 +33,7 @@ service cloud.firestore {
         && request.resource.data.userId == request.auth.uid
         && request.resource.data.keys().hasOnly(['userId', 'mood', 'source', 'helpType', 'note', 'createdAt'])
         && validMood(request.resource.data.mood)
-        && request.resource.data.source in ['schoolwork', 'deadlines', 'relationships', 'family', 'money', 'health', 'other']
+         && request.resource.data.source in ['schoolwork', 'deadlines', 'relationships', 'family', 'money', 'health', 'other', 'loneliness']
         && request.resource.data.helpType in ['calmDown', 'understand', 'talk', 'justTracking']
         && validNote(request.resource.data.note)
         && request.resource.data.createdAt is timestamp;
