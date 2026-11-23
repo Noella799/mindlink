@@ -26,4 +26,7 @@ abstract class AuthRepository {
   Future<void> sendEmailVerification();
 
   Future<void> signOut();
+
+   /// Refreshes the user from the server, e.g. after they verify their email.
+  Future<void> reloadUser();
 }

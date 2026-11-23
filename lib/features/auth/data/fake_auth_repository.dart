@@ -83,6 +83,8 @@ class FakeAuthRepository implements AuthRepository {
     await _wait();
     _setUser(null);
   }
+    @override
+  Future<void> reloadUser() => _wait();
 
   void dispose() => _controller.close();
 

@@ -85,6 +85,17 @@ class FirebaseAuthRepository implements AuthRepository {
   @override
   Future<void> signOut() => _auth.signOut();
 
+ @override
+  Future<void> reloadUser() {
+    return _guard(() async {
+      final user = _auth.currentUser;
+      if (user == null) return;
+      await user.reload();
+      // A fresh token makes userChanges() send the new emailVerified value.
+      await user.getIdToken(true);
+    });
+  }
+
   /// Creates or updates users/{uid}. Only the fields allowed by the security rules.
   Future<void> _saveProfile(String uid, {required String name, required String email}) {
     return _users.doc(uid).set(

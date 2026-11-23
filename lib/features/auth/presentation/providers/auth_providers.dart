@@ -43,6 +43,7 @@ class AuthController extends Notifier<AsyncValue<void>> {
       _run(() => _repository.sendPasswordReset(email.trim()));
 
   Future<bool> resendVerification() => _run(_repository.sendEmailVerification);
+    Future<bool> refreshUser() => _run(_repository.reloadUser);
 
   Future<bool> signOut() => _run(_repository.signOut);
 
