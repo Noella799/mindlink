@@ -25,6 +25,9 @@ class CheckInDraft {
 
   bool get isLastStep => step == totalSteps - 1;
 
+  /// All three questions answered (the single-page check-in from Figma).
+  bool get isComplete => mood != null && source != null && helpType != null;
+
   bool get canContinue => switch (step) {
         0 => mood != null,
         1 => source != null,
