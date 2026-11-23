@@ -2,9 +2,10 @@ import 'package:mindlink/features/support/domain/support_contact.dart';
 
 /// Support options bundled with the app, so they work even offline.
 ///
-/// IMPORTANT: check every phone number with the official source before the
-/// demo and add the campus counselling contact. These could also be moved
-/// into a Firestore `support_contacts` collection later.
+/// Numbers checked against official sources (November 2026):
+/// - 112: national emergency number (gov.rw/emergency)
+/// - 912: toll-free ambulance (Rwanda Biomedical Centre)
+/// - 114: Rwanda Biomedical Centre toll-free health call centre
 class LocalSupportRepository implements SupportRepository {
   const LocalSupportRepository();
 
@@ -24,25 +25,34 @@ class LocalSupportRepository implements SupportRepository {
       suggestedMessage: 'Hi, could we find some time to talk this week? I would like some advice.',
     ),
     SupportContact(
-      id: 'campus-counselling',
-      name: 'Campus counselling / wellness team',
-      description: 'Book a confidential session with your university counselling team.',
+      id: 'campus-wellness',
+      name: 'ALU Wellness Center (Student Life)',
+      description: 'Confidential support from the campus wellness team. '
+          'Contact them through Student Life or the student portal.',
       category: SupportCategory.counselling,
-      // TODO: add the verified campus counselling phone number or email.
+      suggestedMessage: "Hi, I'm an ALU student and I'd like to book a confidential "
+          'session with the wellness team. When are you available?',
     ),
     SupportContact(
-      id: 'rbc-hotline',
-      name: 'Rwanda Biomedical Centre hotline',
-      description: 'Free national health information line.',
+      id: 'rbc-call-centre',
+      name: 'Rwanda Biomedical Centre call centre',
+      description: 'Free national health call centre. They can direct you to health services near you.',
       category: SupportCategory.counselling,
-      phone: '114', // TODO: verify before submission.
+      phone: '114',
     ),
     SupportContact(
       id: 'emergency',
       name: 'Emergency services',
       description: 'Call now if you or someone else is in immediate danger.',
       category: SupportCategory.urgent,
-      phone: '112', // TODO: verify before submission.
+      phone: '112',
+    ),
+    SupportContact(
+      id: 'ambulance',
+      name: 'Ambulance',
+      description: 'Free ambulance line for medical emergencies.',
+      category: SupportCategory.urgent,
+      phone: '912',
     ),
   ];
 
